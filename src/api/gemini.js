@@ -1,10 +1,11 @@
 import {
   GoogleGenerativeAI,
   HarmCategory,
-  HarmBlockThreshold,
-} from "@google/generative-ai-core";
+  HarmBlockThreshold,}
+  from "@google/generative-ai"
 
-const apiKey = process.env.VITE_GEMINI_API_KEY;
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+console.log(apiKey)
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
@@ -28,7 +29,8 @@ async function run(prompt) {
 
   const result = await chatSession.sendMessage(prompt);
   const response=result.response.text()
-  console.log(result.response.text());
+  console.log(response);
+  return response;
 }
 
-export default run();
+export default run;
