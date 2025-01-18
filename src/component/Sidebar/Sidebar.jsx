@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
+import { Context } from "../../context/Context";
 
 const Sidebar = () => {
+  const { prevPrompt, onSent, setRecentPrompt}= useContext(Context)
   const [extend, setExtend] = useState(false);
+  const loadPrompt=async(prompt)=>{
+    setRecentPrompt(prompt)
+    await onSent(prompt)
+
+  }
   return (
     <div className="min-h-screen inline-flex flex-col justify-between bg-[#f0f4f9] p-[25px] px-[15px]">
       <div className="top">
@@ -19,10 +26,14 @@ const Sidebar = () => {
         {extend ? (
           <div className="recent flex flex-col">
             <p className="recentTitle mt-7 mb-3 ml-[10px]">Recent</p>
-            <div className="recentEntry flex items-center gap-3 p-2 pr-10 rounded-full text-[#282828] cursor-pointer hover:bg-[#e2e6eb]">
+           {prevPrompt?.map((item,index)=>{
+            return (
+              <div className="recentEntry flex items-center gap-3 p-2 pr-10 rounded-full text-[#282828] cursor-pointer hover:bg-[#e2e6eb]">
               <img src={assets.message_icon} alt="" className="w-5" />
-              <p>What is react..</p>
+              <p onClick={()=>loadPrompt(item)}>{item.slice(0,16)}...</p>
             </div>
+            )
+           })}
           </div>
         ) : null}
       </div>

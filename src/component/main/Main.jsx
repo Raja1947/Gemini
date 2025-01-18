@@ -32,58 +32,73 @@ const Main = () => {
               <p className="mt-2 font-semibold">How can I help you today?</p>
             </div>
             <div className="cards grid grid-cols-4 gap-4 p-4">
-          <div className="card h-48 bg-[#f0f4f9] p-4 rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]">
-            <p className="text-[#6c6a6a]">
-              Suggest beautiful places to see on an upcoming road trip
-            </p>
-            <img
-              src={assets.compass_icon}
-              className="w-10 p-1 absolute bg-white rounded-full bottom-2 right-2"
-            />
-          </div>
-          <div className="card h-48 bg-[#f0f4f9] p-4 rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]">
-            <p className="text-[#6c6a6a] ">
-              Suggest beautiful places to see on an upcoming road trip
-            </p>
-            <img
-              src={assets.bulb_icon}
-              className="w-10 p-1 absolute bg-white rounded-full bottom-2 right-2"
-            />
-          </div>
-          <div className="card h-48 bg-[#f0f4f9] p-4 rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]">
-            <p className="text-[#6c6a6a] ">
-              Suggest beautiful places to see on an upcoming road trip
-            </p>
-            <img
-              src={assets.message_icon}
-              className="w-10 p-1 absolute bg-white rounded-full bottom-2 right-2"
-            />
-          </div>
-          <div className="card h-48 bg-[#f0f4f9] p-4 rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]">
-            <p className="text-[#6c6a6a] ">
-              Suggest beautiful places to see on an upcoming road trip
-            </p>
-            <img
-              src={assets.code_icon}
-              className="w-10 p-1 absolute bg-white rounded-full bottom-2 right-2"
-            />
-          </div>
-        </div>
+              <div className="card h-48 bg-[#f0f4f9] p-4 rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]">
+                <p className="text-[#6c6a6a]">
+                  Suggest beautiful places to see on an upcoming road trip
+                </p>
+                <img
+                  src={assets.compass_icon}
+                  className="w-10 p-1 absolute bg-white rounded-full bottom-2 right-2"
+                />
+              </div>
+              <div className="card h-48 bg-[#f0f4f9] p-4 rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]">
+                <p className="text-[#6c6a6a] ">
+                  Suggest beautiful places to see on an upcoming road trip
+                </p>
+                <img
+                  src={assets.bulb_icon}
+                  className="w-10 p-1 absolute bg-white rounded-full bottom-2 right-2"
+                />
+              </div>
+              <div className="card h-48 bg-[#f0f4f9] p-4 rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]">
+                <p className="text-[#6c6a6a] ">
+                  Suggest beautiful places to see on an upcoming road trip
+                </p>
+                <img
+                  src={assets.message_icon}
+                  className="w-10 p-1 absolute bg-white rounded-full bottom-2 right-2"
+                />
+              </div>
+              <div className="card h-48 bg-[#f0f4f9] p-4 rounded-xl relative cursor-pointer hover:bg-[#dfe4ea]">
+                <p className="text-[#6c6a6a] ">
+                  Suggest beautiful places to see on an upcoming road trip
+                </p>
+                <img
+                  src={assets.code_icon}
+                  className="w-10 p-1 absolute bg-white rounded-full bottom-2 right-2"
+                />
+              </div>
+            </div>
           </>
         ) : (
-          <div className="py-0 px-[5%] max-h-[70vh] overflow-y-scroll">
+          <div className="py-0 px-[5%] max-h-[70vh] overflow-y-scroll scrollbar-hidden">
             <div className="my-10 mx-0 flex items-center gap-5">
-            <FaUserCircle className="text-3xl"/>
+              <FaUserCircle className="text-3xl" />
               <p>{recentPrompt}</p>
             </div>
-            <div className="flex items-center gap-5">
-              <img/>
-              <p>{resultData}</p>
+            <div className="flex items-start gap-5">
+              <img
+                src={assets.logo_icon}
+                alt=""
+                className="w-10 rounded-[50%]"
+              />
+              {loading ? (
+                <div className="w-full flex flex-col gap-2">
+                  <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-pulse" />
+                  <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-pulse" />
+                  <hr className="rounded-md border-none bg-gray-200 bg-gradient-to-r from-[#81cafe] via-[#ffffff] to-[#81cafe] p-4 animate-pulse" />
+
+                </div>
+              ) : (
+              
+                    <p className="text-lg font-[400] leading-[1.7]">{resultData}</p>
+               
+              )}
+            
             </div>
           </div>
         )}
 
-       
         <div className="mainbottom absolute bottom-0 w-full max-w-4xl py-0 px-5">
           <div className=" flex items-center justify-between gap-5 bg-[#F0F4F9] p-3 rounded-2xl">
             <input
@@ -100,7 +115,7 @@ const Main = () => {
                 src={assets.send_icon}
                 alt=""
                 className="w-6 h-6"
-                onClick={() => onSent(input)}
+                onClick={() => onSent()}
               />
             </div>
           </div>
