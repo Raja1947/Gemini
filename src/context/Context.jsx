@@ -1,11 +1,9 @@
 import { createContext, useState } from "react";
 import run from "../api/gemini";
 
-
 export const Context = createContext();
 
 const ContextProvider = (props) => {
-    
   const [input, setInput] = useState("");
   const [recentPrompt, setRecentPrompt] = useState("");
   const [prevPrompt, setPrevPrompt] = useState([]);
@@ -13,7 +11,30 @@ const ContextProvider = (props) => {
   const [loading, setLoading] = useState(false);
   const [resultData, setResultData] = useState("");
 
-  
+  const delayPara = (index, nextWord) => {
+    setTimeout(() => {
+      setResultData((prev) => prev + nextWord);
+    }, 75 * index);
+  };
+
+  const newChat = () => {
+    setLoading(false);
+    setShowResult(false);
+    setResultData("");
+  };
+
+  const formatResponse = (response) => {
+    let formatted = response
+      .split("**")
+      .map((segment, index) =>
+        index % 2 === 1 ? `<b>${segment}</b>` : segment
+      )
+      .join("")
+      .split("*")
+      .join("</br>");
+    return formatted.split(" ");
+  };
+
   const onSent = async (prompt) => {
     setResultData("");
     setLoading(true);
@@ -31,7 +52,11 @@ const ContextProvider = (props) => {
         response = await run(input);
       }
 
-      setResultData(response);
+      const responseArray = formatResponse(response);
+
+      responseArray.forEach((word, index) => {
+        delayPara(index, word + " ");
+      });
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -40,7 +65,6 @@ const ContextProvider = (props) => {
     }
   };
 
-  
   const contextValue = {
     input,
     setInput,
@@ -52,10 +76,13 @@ const ContextProvider = (props) => {
     loading,
     resultData,
     onSent,
+    newChat,
   };
 
   return (
-    <Context.Provider value={contextValue}>{props.children}</Context.Provider>
+    <Context.Provider value={contextValue}>
+      {props.children}
+    </Context.Provider>
   );
 };
 
